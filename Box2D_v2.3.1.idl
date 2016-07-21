@@ -2,6 +2,7 @@
 [NoDelete]
 interface b2Contact {
   b2Manifold GetManifold();
+  void GetWorldManifold(b2WorldManifold worldManifold);
   boolean IsTouching();
   void SetEnabled(boolean flag);
   boolean IsEnabled();
@@ -590,7 +591,7 @@ enum b2ManifoldType {
 interface b2Manifold {
   void b2Manifold();
   // TODO: webidl_binder support for array types.
-  // [Value] attribute b2ManifoldPoint[] points;
+  [Value] attribute b2ManifoldPoint[] points;
   [Value] attribute b2Vec2 localNormal;
   [Value] attribute b2Vec2 localPoint;
   attribute b2ManifoldType type;
@@ -603,6 +604,13 @@ interface b2ManifoldPoint {
   attribute float normalImpulse;
   attribute float tangentImpulse;
   [Value] attribute b2ContactID id;
+};
+
+interface b2WorldManifold {
+  void b2WorldManifold();
+  void Initialize(b2Manifold manifold, [Ref] b2Transform xfA, float radiusA, [Ref] b2Transform xfB, float radiusB);
+  [Value] attribute b2Vec2 normal;
+  [Value] attribute b2Vec2[] points;
 };
 
 interface b2Mat22 {
